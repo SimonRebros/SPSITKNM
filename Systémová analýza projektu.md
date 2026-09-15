@@ -1,283 +1,154 @@
+Názov projektu: Escape Room
+
+Meno riešiteľa: Šimon Rebroš
+
+Dôvod a okolnosti zavedenia riešenia
+
+Projekt vznikol s cieľom vytvoriť interaktívnu digitálnu Escape Room hru, ktorú je možné hrať prostredníctvom počítača alebo webového prehliadača. Cieľom je vytvoriť zábavnú logickú hru, pri ktorej hráč postupne rieši rôzne hádanky a úlohy, získava predmety a snaží sa dostať z virtuálnej miestnosti v stanovenom časovom limite.
 
-# Názov projektu (+ meno riešiteľa)
-- **Názov projektu**: [Názov projektu]
-- **Meno riešiteľa**: [Meno študenta]
-- **Login**: [Login]
+Slovné zadanie, popis projektu od zákazníka
 
----
+Cieľom projektu je vytvoriť prehľadnú a intuitívnu Escape Room hru. Hráč sa po spustení hry dostane do virtuálnej miestnosti, v ktorej musí riešiť rôzne logické úlohy a hádanky.
 
-## Seznam kapitol - částí projektu
-1. Úvod
-2. Dôvod a okolnosti zavedenia riešenia
-3. Popis projektu (slovné zadanie, popis od zákazníka)
-4. Analýza požiadaviek
-5. Systémové požiadavky (FURPS)
-6. Kritické situácie
-7. Hranice systému
-8. Kontext prostredia
-9. Charakteristika aktérov
-10. Use Case diagram
-11. Scenáre (Implementácia Use Case)
-12. Sekvenčný diagram
-13. Triedny diagram
-14. Aktivitný diagram — *bonus*
-15. BPMN diagram — *bonus*
-16. Wireframe kľúčových obrazoviek — *bonus*
-17. Záver
+Za úspešné vyriešenie úloh získava nové informácie, kódy alebo predmety, ktoré môže použiť pri ďalšom postupe. Hra bude obsahovať časový limit, systém nápovied a možnosť vyhodnotenia výsledku hráča.
 
----
+Používateľské rozhranie má byť jednoduché a zrozumiteľné aj pre používateľa, ktorý hru hrá prvýkrát.
 
-## Popis zmien v dokumentu
-Tento dokument reflektuje všetky zmeny a vylepšenia, ktoré boli vykonané v predchádzajúcich verziách, ako aj aktualizácie implementácie a návrhu systému.
+Seznam modulů projektu a jejich významných atributů
+1. Herný modul
+Atribúty: aktuálna miestnosť, stav hry, zostávajúci čas, počet vyriešených úloh
+Unikátna identifikácia objektov: game.id
+2. Modul hádaniek
+Atribúty: otázka alebo zadanie, správna odpoveď, obtiažnosť, stav vyriešenia
+Unikátna identifikácia objektov: puzzle.id
+3. Inventár
+Atribúty: zoznam získaných predmetov, možnosť použitia predmetu
+Unikátna identifikácia objektov: item.id
+4. Modul nápovied
+Atribúty: text nápovedy, počet dostupných nápovied, väzba na konkrétnu hádanku
+Unikátna identifikácia objektov: hint.id
+5. Používateľské rozhranie
+Atribúty: zobrazenie miestnosti, úloh, inventára, časovača a ovládacích prvkov
+Unikátna identifikácia objektov: screen.id
+Systémové požiadavky FURPS
+1. Funkčnosť (Functionality – F)
+Hráč môže spustiť novú hru.
+Hráč môže riešiť jednotlivé hádanky.
+Systém kontroluje správnosť odpovedí.
+Hráč môže získavať a používať predmety.
+Hráč môže používať dostupné nápovedy.
+Systém sleduje zostávajúci čas.
+Po ukončení hry systém zobrazí výsledok hráča.
+2. Vhodnosť k použitiu (Usability – U)
+Jednoduché a prehľadné používateľské rozhranie.
+Hra bude ovládateľná pomocou myši a klávesnice.
+Hráč bude jasne vidieť zostávajúci čas, inventár a aktuálnu úlohu.
+Hra nebude vyžadovať predchádzajúce skúsenosti používateľa.
+3. Spoľahlivosť (Reliability – R)
+Hra musí správne kontrolovať odpovede hráča.
+Časovač musí fungovať počas celej hry.
+Postup hráča sa počas hrania nesmie svojvoľne stratiť.
+Jedna chyba používateľa nesmie spôsobiť pád celej aplikácie.
+4. Výkon (Performance – P)
+Hra nebude vyžadovať výkonný hardvér.
+Jednotlivé obrazovky a úlohy sa budú načítavať bez výrazného oneskorenia.
+Kontrola odpovede bude vykonaná prakticky okamžite.
+5. Schopnosť údržby (Supportability – S)
+Do hry bude možné jednoducho pridávať nové hádanky.
+Bude možné upravovať existujúce úlohy bez potreby meniť celý program.
+Projekt bude rozdelený do samostatných modulov, aby bolo jednoduchšie opravovať chyby alebo pridávať nové funkcie.
+Kritické situácie
+1. Systémové
+Chyba pri načítaní hry alebo niektorej miestnosti.
+Chyba pri ukladaní aktuálneho stavu hry.
+Nesprávne fungovanie časovača.
+2. Aplikačné
+Hráč zadá neplatný vstup.
+Hráč sa pokúsi použiť predmet na nesprávnom mieste.
+Hráč sa pokúsi pokračovať bez vyriešenia potrebnej úlohy.
+Hráč vyčerpá všetky nápovedy.
+Tri situácie definujúce hranice systému
+1. Ideálny scenár
 
----
+Hráč spustí hru, postupne vyrieši všetky hádanky, správne používa získané predmety a dostane sa z Escape Room pred vypršaním časového limitu.
 
-## Dôvod a okolnosti zavedenia riešenia
-Tento projekt je navrhnutý s cieľom zlepšiť proces diagnostiky automobilov. Zavedenie jednotného systému pre diagnostiku umožní mechanikom a technikom prístup k rôznym riadiacim jednotkám a ich diagnostickým kódom bez nutnosti používať rozličné doplnkové softvéry. Cieľom je zvýšiť efektivitu, minimalizovať chyby a ušetriť čas pri diagnostike vozidiel.
+2. Hranične riešiteľný scenár
 
----
+Hráč nevie vyriešiť niektorú z hádaniek. Použije dostupnú nápovedu a pokračuje ďalej. Hru stále dokáže úspešne dokončiť.
 
-## Slovné zadanie, popis projektu od zákazníka
-Cieľom tohto projektu je vytvoriť prehľadný a intuitívny diagnostický systém pre správu automobilov. Tento systém bude slúžiť na diagnostiku závad na vozidlách a analýzu dát z riadiacich jednotiek (ECU). Funkcionality budú zahŕňať: čítanie diagnostických kódov, zobrazovanie meraných hodnôt, testovanie aktuátorov a predikciu údržbových upozornení.
+3. Situácie, ktoré aplikácia nezvládne
 
----
+Hráč nevyrieši potrebnú hádanku, vyčerpá všetky nápovedy a bez správneho riešenia sa nedokáže dostať do ďalšej časti hry.
 
-## Seznam modulů projektu a jejich významných atributů
-1. **Modul pre čítanie diagnostických kódov (DTC)**
-   - Atribúty: diagnostické kódy, stav vozidla, počet chýb
-   - Unikátna identifikácia objektov: Kód chyby, ID vozidla
+Kontext prostredia
 
-2. **Užívateľské rozhranie (UI)**
-   - Atribúty: grafické rozhranie, interaktívne prvky
-   - Unikátna identifikácia objektov: ID užívateľa, ID diagnostického nástroja
+Aplikácia bude fungovať na počítači prostredníctvom webového prehliadača. Na jej používanie nebude potrebný žiadny špeciálny hardvér ani externé zariadenie.
 
-3. **Komunikačný modul**
-   - Atribúty: pripojenie k OBD-II, synchronizácia s externými zariadeniami
-   - Unikátna identifikácia objektov: Komunikačné protokoly, ID zariadení
+Charakteristika aktérov a prostredia
 
-4. **Dátový analytický modul**
-   - Atribúty: analýza dát, predikčné modely
-   - Unikátna identifikácia objektov: Predikčný model, ID analýzy
+Aktéri:
 
-5. **Modul pre aktualizácie softvéru**
-   - Atribúty: verzia softvéru, súbor na aktualizáciu
-   - Unikátna identifikácia objektov: Verzia systému, ID aktualizácie
+Hráč
+Administrátor / tvorca hry
 
----
+Prostredie:
 
-## Systémové požiadavky FURPS
-1. **Funkčnosť (Functionality - F)**
-   - Možnosť zobraziť pamäť závad
-   - Čítanie meraných hodnôt z ECU
-   - Testovanie aktuátorov a resetovanie parametrov
+Počítač alebo notebook
+Webový prehliadač
 
-2. **Vhodnosť k použitiu (Usability - U)**
-   - Užívateľsky prívetivý rozhranie
-   - Intuitívne ovládanie pre profesionálov aj laikov
+Hráč používa aplikáciu na hranie Escape Room hry.
 
-3. **Spoľahlivosť (Reliability - R)**
-   - Nízka miera zlyhaní, konzistentná diagnostika
-   - Obnovenie systému v prípade zlyhania
+Administrátor môže pridávať alebo upravovať hádanky, predmety a ďalší obsah hry.
 
-4. **Výkon (Performance - P)**
-   - Rýchla diagnostika s nízkou spotrebou zdrojov
+Use Case diagram
 
-5. **Schopnosť údržby (Supportability - S)**
-   - Jednoduché aktualizácie a testovanie systému
-   - Podpora pre nové modely vozidiel
 
----
 
-## Kritické situácie
-1. **Systémové**
-   - Výpadok napájania: Systém nie je schopný vykonať diagnostiku bez napájania.
-   - Zlyhanie hardware: Poškodenie senzorov alebo ECU vedie k nepresnej diagnostike.
 
-2. **Aplikačné**
-   - Problémy s komunikáciou medzi diagnostickým zariadením a OBD-II portom vozidla.
 
----
+Scenáre – konkrétna implementácia Use Case
+1. Vyriešenie hádanky
 
-## Tri situácie definujúce hranice systému
-1. **Ideálny scenár**
-   - Systém úspešne vykoná diagnostiku, zobrazuje chybové kódy a poskytuje potrebné informácie pre opravu vozidla.
+Názov: Vyriešenie hádanky
 
-2. **Hranične riešiteľný scenár**
-   - Systém nedokáže identifikovať konkrétnu závadu, ale poskytne návrh na ďalšiu diagnostiku.
+Kontext: Hráč chce vyriešiť úlohu, aby mohol pokračovať v Escape Room.
 
-3. **Situácie, ktoré systém nezvládne**
-   - Systém nie je schopný vykonať diagnostiku v prípade úplného zlyhania ECU alebo riadiacej jednotky.
+Level zanorenia Use Case: Hlavný scenár
 
----
+Aktéri: Hráč, systém
 
-## Kontext prostredia
-Systém bude implementovaný ako samostatné riešenie, ktoré nebude závislé od existujúcich systémov. Bude musieť zohľadňovať rôzne environmentálne faktory, ako je teplota, vlhkosť a typ terénu, ktoré môžu ovplyvniť diagnostiku.
+Stakeholderi a záujmové osoby: Hráč, administrátor hry
 
----
+Vstupné podmienky:
 
-## Charakteristika aktérov a prostredia
-- **Aktéri**: Mechanik, technik, výrobca automobilov, majiteľ vozidla
-- **Prostredie**: Auto servis, mobilné zariadenia, diagnostické nástroje
+Hráč má spustenú hru.
+Hráč sa nachádza pri aktívnej hádanke.
+Hra ešte nebola ukončená.
 
----
+Výstupné podmienky:
 
-## Use Case diagram
-- **Minimálne 5 modulov a 2 aktéry**
-- Doporučené maximum: 5 modulov s využitím `include` a `extend` vzťahov.
+Systém vyhodnotí odpoveď hráča.
 
----
+Minimálny výstup:
 
-## Scenáre - konkrétna implementácia Use Case
+Systém oznámi hráčovi, či bola odpoveď správna alebo nesprávna.
 
-**1. Vyhľadávanie kódového chybového hlásenia**  
-   - **Názov**: Vyhľadanie chybového kódu P0300  
-   - **Kontext**: Mechanik chce diagnostikovať problém s motorom vozidla.  
-   - **Level zanoření Use Case**: Hlavný scénar  
-   - **Aktéri**: Mechanik  
-   - **Stakeholdeři a zájmové osoby**: Mechanici, majitelia vozidiel  
-   - **Vstupné podmienky**: Mechanik má prístup k OBD-II diagnostickej jednotke  
-   - **Výstupné podmienky**: Zobrazenie chybového kódu  
-   - **Minimálny výstup**: Zobrazenie chybového kódu  
-   - **Ideálny výstup**: Zobrazenie detailných informácií o závade
+Ideálny výstup:
 
-**Hlavný scénár**:  
-1. Mechanik pripojí OBD-II jednotku k vozidlu.  
-2. Systém vykoná diagnostiku a zobraziť chybový kód.
+Hráč zadá správnu odpoveď, úloha sa označí ako vyriešená a odomkne sa ďalšia časť hry.
+Hlavný scenár
+Hráč otvorí hádanku.
+Systém zobrazí zadanie.
+Hráč zadá odpoveď.
+Systém porovná odpoveď so správnym riešením.
+Odpoveď je správna.
+Systém označí hádanku ako vyriešenú.
+Hráč získa predmet, kód alebo prístup k ďalšej časti hry.
+Rozšírenie
+Ak je odpoveď nesprávna, systém upozorní hráča a umožní mu skúsiť odpovedať znova.
+Ak hráč nevie odpoveď, môže použiť nápovedu.
+Ak časový limit vyprší, hra sa ukončí.
+Sekvenčný diagram
 
-**Rozšírenie**:  
-- Ak diagnostika zlyhá, zobrazí sa chybová hláška a mechanik sa musí pripojiť manuálne.
 
----
-
-## Sekvenčný diagram
-- Vytvorte sekvenčný diagram, ktorý ukáže interakcie medzi mechanikom, diagnostickým nástrojom a vozidlom.
-
----
-
-## Triedny diagram
-- Zobraziť triedy ako `Vehicle`, `ECUDiagnosticTool`, `OBD2_Codes` a ich vzťahy.
-
----
-
-## Aktivitný diagram — *bonus*
-
-> Nie je povinný. Za dobre spracovaný diagram sú **plusové body**.
-
-Vezmite **jeden zložitejší scenár** z kapitoly *Scenáre* (ideálne taký, kde je
-vetvenie alebo viac krokov za sebou) a rozkreslite jeho tok ako **diagram aktivít**:
-
-- počiatočný uzol → akcie → **rozhodovací uzol** s podmienkami `[…]` → koncový uzol
-- ak v scenári niečo prebieha súbežne, použite **fork / join**
-- ak je pri akcii jasné, kto ju vykonáva (mechanik vs systém), rozdeľte akcie do **plaveckých dráh**
-
-Notácia a hotový príklad: [Úvod do softvérového inžinierstva → Diagram aktivít](/citacka.html?s=oop&doc=uvod-do-si#diagram-aktivit)
-
----
-
-## BPMN diagram — *bonus*
-
-> Nie je povinný. Za dobre spracovaný diagram sú **plusové body**.
-
-BPMN nie je súčasťou UML — je to štandard na modelovanie **biznis procesu**, do
-ktorého systém zapadá. Ukážte **jeden proces** okolo vášho systému (napr. „príjem
-vozidla do servisu a diagnostika") a zamerajte sa na:
-
-- **bazén a dráhy** — kto je účastník (zákazník, mechanik, systém)
-- **typy úloh** — čo robí človek cez systém (*user task*) vs čo systém automaticky (*service task*)
-- **brány** — kde sa proces vetví (`×` exkluzívna brána)
-- **štartovú a koncové udalosti**
-
-Notácia, typy úloh a hotový príklad: [Úvod do softvérového inžinierstva → BPMN](/citacka.html?s=oop&doc=uvod-do-si#bpmn-procesny-pohlad)
-
----
-
-## Wireframe kľúčových obrazoviek — *bonus*
-
-> Nie je povinný. Za dobre spracovaný wireframe sú **plusové body**.
-
-Načrtnite **2–3 kľúčové obrazovky** vášho systému — nízkofidelitný wireframe
-(rozloženie prvkov, žiadne farby ani finálny dizajn). Každú obrazovku viažte na
-konkrétny use case (napr. formulár novej žiadanky = UC „vytvoriť žiadanku",
-zoznam so stavmi = UC „sledovať stav").
-
-Toto je zároveň **návrh aplikácie, ktorú budete postupne implementovať** na
-hodinách programovania — oplatí sa navrhnúť niečo, čo naozaj chcete mať hotové.
-
-Úrovne (wireframe → mockup → prototyp) a hotový príklad:
-[Úvod do softvérového inžinierstva → Wireframe a mockup](/citacka.html?s=oop&doc=uvod-do-si#wireframe-a-mockup)
-
----
-
-
-# Rozšírenie FURPS analýzy pre projekt diagnostického softvéru pre automobily
-
-## 1. **S.M.A.R.T. Ciele (Specific, Measurable, Achievable, Relevant, Time-bound)**
-Táto metodika pomáha definovať jasné a merateľné ciele, ktoré by mal systém splniť. Použitie tejto analýzy môže byť veľmi užitočné na určenie konkrétnych cieľov pre implementáciu systému:
-- **Specific (Špecifické)**: Čo presne má systém robiť? (napr. čítanie diagnostických kódov)
-- **Measurable (Merateľné)**: Ako budeme hodnotiť úspech? (napr. doba odozvy systému pri diagnostike)
-- **Achievable (Dosiahnuteľné)**: Je tento cieľ realistický s dostupnými zdrojmi?
-- **Relevant (Relevantné)**: Má tento cieľ skutočne hodnotu pre používateľov systému?
-- **Time-bound (Časovo ohraničené)**: Kedy by mal byť cieľ dosiahnutý?
-
----
-
-## 2. **SWOT analýza (Strengths, Weaknesses, Opportunities, Threats)**
-SWOT analýza je skvelý nástroj na hodnotenie silných a slabých stránok systému, ako aj príležitostí a hrozieb, ktoré môžu ovplyvniť jeho úspešnosť:
-- **Strengths (Silné stránky)**: Aké sú hlavné výhody systému (napr. vysoká spoľahlivosť)?
-- **Weaknesses (Slabé stránky)**: Kde má systém slabiny (napr. obmedzená podpora pre staršie modely vozidiel)?
-- **Opportunities (Príležitosti)**: Aké príležitosti existujú pre rozšírenie systému (napr. pripojenie na mobilné aplikácie)?
-- **Threats (Hrozby)**: Aké externé faktory by mohli ohroziť systém (napr. technológie konkurentov)?
-
----
-
-## 3. **Risk Analysis (Analýza rizík)**
-Risk analýza sa zameriava na identifikáciu a hodnotenie potenciálnych rizík spojených s vývojom a implementáciou systému:
-- **Technologické riziká**: Napríklad problémy s integráciou nových modelov vozidiel alebo zmeny v OBD-II protokole.
-- **Projektové riziká**: Napríklad oneskorenie v implementácii alebo nepredvídané náklady.
-- **Bezpečnostné riziká**: Riziká spojené s ochranou dát a citlivých informácií.
-
----
-
-## 4. **UML (Unified Modeling Language) Diagramy**
-Okrem FURPS analýzy môžu študenti využiť aj rôzne UML diagramy, ako sú:
-- **Triedne diagramy**: Ukazujú štruktúru systému a jeho komponenty (triedy a objekty) s atribútmi a metódami.
-- **Sekvenčné diagramy**: Ukazujú časovú posloupnosť udalostí a interakcií medzi rôznymi komponentami systému.
-- **Stavové diagramy**: Zobrazujú rôzne stavy systému a prechody medzi nimi na základe určitých podmienok.
-- **Aktivitné diagramy**: Vizualizujú tok aktivít v systéme a rozhodovanie medzi rôznymi operáciami.
-
----
-
-## 5. **Agilné metodiky (Scrum, Kanban)**
-Pre projektový manažment je možné použiť agilné metodiky na riadenie vývoja systému. Tieto metodiky sú obzvlášť užitočné pri dynamických projektoch, kde sa môže meniť rozsah a požiadavky:
-- **Scrum**: Metodika, ktorá sa zameriava na pravidelné iterácie a tým aj rýchlejšie nasadzovanie nových funkcií.
-- **Kanban**: Vizualizuje pracovný tok a umožňuje sledovať stav jednotlivých úloh v reálnom čase.
-
----
-
-## 6. **Testovacia analýza (Testovanie kvality)**
-Kvalitné testovanie je neoddeliteľnou súčasťou každého systému. Testovacia analýza by mala zahŕňať:
-- **Unit Testing (Jednotkové testy)**: Testovanie jednotlivých komponentov systému.
-- **Integration Testing (Integračné testy)**: Testovanie interakcie medzi rôznymi časťami systému.
-- **Acceptance Testing (Akceptačné testy)**: Overenie, či systém spĺňa požiadavky používateľa a obchodné ciele.
-
----
-
-## 7. **Vývojový životný cyklus (SDLC - Software Development Life Cycle)**
-Pre štruktúrovaný vývoj môže byť užitočné dodržiavať niektorý z modelov vývojového životného cyklu:
-- **Waterfall**: Tradičný prístup s fázami ako analýza, návrh, implementácia a testovanie.
-- **Agile**: Flexibilnejší prístup s častými iteráciami a zlepšovaním systému.
-
----
-
-# Zhrnutie
-Na obohatenie tvojej video analýzy FURPS môžeš zvážiť pridanie ďalších metodík a nástrojov ako:
-- **S.M.A.R.T. Ciele** na definovanie konkrétnych a merateľných cieľov.
-- **SWOT analýza** na hodnotenie silných a slabých stránok systému.
-- **Risk Analysis** na identifikáciu a hodnotenie potenciálnych rizík.
-- **UML diagramy** na vizualizáciu a detailnejšie pochopenie systému.
-- **Agilné metodiky** na riadenie projektu a iteratívny vývoj.
-- **Testovacia analýza** na zabezpečenie kvality systému.
-- **SDLC modely** na riadenie vývoja.
-
-Tieto metódy a analýzy môžu študentom pomôcť lepšie pochopiť rôzne aspekty systému a jeho vývoja, čo je veľmi užitočné pri implementácii skutočných softvérových riešení.
-
+Triedny diagram
